@@ -1,13 +1,14 @@
-class Pedidos {
-    data class Pedido(val id:Int,val nomeCliente:String,val carrinho: Carrinho,var status:String)
-    val pedidos = arrayListOf<Pedido>()
-
-    fun adicionarPedido(nomeCliente:String,carrinho: Carrinho){
-        val status = "Em andamento"
-        val pedido = Pedido(1,nomeCliente,carrinho,status)
-        pedidos.add(pedido)
+class Pedido(val cliente:Cliente, val carrinho: Carrinho){
+    var valorTotal =0.0
+    var status =""
+    init {
+        this.status = "Em andamento"
     }
-    fun atualizarPedido(pedido: Pedido,status: String){
-        pedido.status = status
+    fun atualizarPedido(status: String){
+        this.status = status
+        notifyCliente()
+    }
+    private fun notifyCliente(){
+        cliente.update(status)
     }
 }
